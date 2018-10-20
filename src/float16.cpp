@@ -1,4 +1,4 @@
-#include "float16.hpp"
+#include <float16.hpp>
 #include <iostream>
 
 uint16_t float2half(const float& val) {
@@ -80,25 +80,18 @@ half& half::operator=(const float& rhs) {
 }
 
 // Operator +, -, *, /
-half operator+(half lhs, const half& rhs) {
-    lhs += rhs;
-    return lhs;
+#define BINARY_ARITHMETIC_OPERATOR(OP)                                         \
+half operator OP(half lhs, const half& rhs) {                                  \
+    lhs OP##= rhs;                                                             \
+    return lhs;                                                                \
 }
 
-half operator-(half lhs, const half& rhs) {
-    lhs -= rhs;
-    return lhs;
-}
+BINARY_ARITHMETIC_OPERATOR(+)
+BINARY_ARITHMETIC_OPERATOR(-)
+BINARY_ARITHMETIC_OPERATOR(*)
+BINARY_ARITHMETIC_OPERATOR(/)
 
-half operator*(half lhs, const half& rhs) {
-    lhs *= rhs;
-    return lhs;
-}
-
-half operator/(half lhs, const half& rhs) {
-    lhs /= rhs;
-    return lhs;
-}
+#undef BINARY_ARITHMETIC_OPERATOR
 
 // Operator <, >, <=, >=
 bool operator<(const half& lhs, const half& rhs) {

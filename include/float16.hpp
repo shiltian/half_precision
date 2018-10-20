@@ -17,25 +17,18 @@ struct half {
     half& operator=(const float& rhs);
     
     // Operator +=, -=, *=, /=
-    half& operator+=(const half& rhs) {
-        *this = operator float() + static_cast<float>(rhs);
-        return *this;
+#define BINARY_ARITHMETIC_OPERATOR(OP)                                         \
+    half& operator OP##=(const half& rhs) {                                    \
+        *this = operator float() OP static_cast<float>(rhs);                   \
+        return *this;                                                          \
     }
     
-    half& operator-=(const half& rhs) {
-        *this = operator float() - static_cast<float>(rhs);
-        return *this;
-    }
-    
-    half& operator*=(const half& rhs) {
-        *this = operator float() * static_cast<float>(rhs);
-        return *this;
-    }
-    
-    half& operator/=(const half& rhs) {
-        *this = operator float() / static_cast<float>(rhs);
-        return *this;
-    }
+    BINARY_ARITHMETIC_OPERATOR(+)
+    BINARY_ARITHMETIC_OPERATOR(-)
+    BINARY_ARITHMETIC_OPERATOR(*)
+    BINARY_ARITHMETIC_OPERATOR(/)
+
+#undef BINARY_ARITHMETIC_OPERATOR
     
     // Operator ++, --
     half& operator++() {
