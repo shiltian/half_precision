@@ -1,7 +1,7 @@
 #include <float16.hpp>
 #include <iostream>
 
-uint16_t float2half(const float& val) {
+static uint16_t float2half(const float& val) {
     const uint32_t bits = *reinterpret_cast<const uint32_t*>(&val);
     
     uint16_t ret = 0;
@@ -30,7 +30,7 @@ uint16_t float2half(const float& val) {
     return ret;
 }
 
-float half2float(const uint16_t& val) {
+static float half2float(const uint16_t& val) {
     uint32_t bits = 0;
     
     // Extract the sign from the bits
