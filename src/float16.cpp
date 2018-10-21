@@ -56,32 +56,32 @@ static float half2float(const uint16_t& val) {
     return *reinterpret_cast<float*>(&bits);
 }
 
-std::ostream& operator<<(std::ostream& os, const half& val) {
+std::ostream& operator<<(std::ostream& os, const float16& val) {
     os << static_cast<float>(val);
     return os;
 }
 
-std::istream& operator>>(std::istream& is, half& val_h) {
+std::istream& operator>>(std::istream& is, float16& val_h) {
     float val_f = 0.0f;
     is >> val_f;
     val_h = val_f;
     return is;
 }
 
-half::half(const float& rhs) : buf(float2half(rhs)) {}
+float16::float16(const float& rhs) : buf(float2half(rhs)) {}
 
-half::operator float() const {
+float16::operator float() const {
     return half2float(buf);
 }
 
-half& half::operator=(const float& rhs) {
+float16& float16::operator=(const float& rhs) {
     buf = float2half(rhs);
     return *this;
 }
 
 // Operator +, -, *, /
 #define BINARY_ARITHMETIC_OPERATOR(OP)                                         \
-half operator OP(half lhs, const half& rhs) {                                  \
+float16 operator OP(float16 lhs, const float16& rhs) {                                  \
     lhs OP##= rhs;                                                             \
     return lhs;                                                                \
 }
@@ -94,27 +94,27 @@ BINARY_ARITHMETIC_OPERATOR(/)
 #undef BINARY_ARITHMETIC_OPERATOR
 
 // Operator <, >, <=, >=
-bool operator<(const half& lhs, const half& rhs) {
+bool operator<(const float16& lhs, const float16& rhs) {
     return static_cast<float>(lhs) < static_cast<float>(rhs);
 }
 
-bool operator>(const half& lhs, const half& rhs) {
+bool operator>(const float16& lhs, const float16& rhs) {
     return rhs < lhs;
 }
 
-bool operator<=(const half& lhs, const half& rhs) {
+bool operator<=(const float16& lhs, const float16& rhs) {
     return !(lhs > rhs);
 }
 
-bool operator>=(const half& lhs, const half& rhs) {
+bool operator>=(const float16& lhs, const float16& rhs) {
     return !(lhs < rhs);
 }
 
 // Operator ==, !=
-bool operator==(const half& lhs, const half& rhs) {
+bool operator==(const float16& lhs, const float16& rhs) {
     return static_cast<float>(lhs) == static_cast<float>(rhs);
 }
 
-bool operator!=(const half& lhs, const half& rhs) {
+bool operator!=(const float16& lhs, const float16& rhs) {
     return !(lhs == rhs);
 }

@@ -5,20 +5,20 @@
 
 #include <cstdint>
 
-struct half {
-    half() = default;
+struct float16 {
+    float16() = default;
     
-    half(const half&) = default;
+    float16(const float16&) = default;
     
-    half(half&&) = default;
+    float16(float16&&) = default;
     
-    half(const float& rhs);
+    float16(const float& rhs);
     
-    half& operator=(const float& rhs);
+    float16& operator=(const float& rhs);
     
     // Operator +=, -=, *=, /=
 #define BINARY_ARITHMETIC_OPERATOR(OP)                                         \
-    half& operator OP##=(const half& rhs) {                                    \
+    float16& operator OP##=(const float16& rhs) {                                    \
         *this = operator float() OP static_cast<float>(rhs);                   \
         return *this;                                                          \
     }
@@ -31,24 +31,24 @@ struct half {
 #undef BINARY_ARITHMETIC_OPERATOR
     
     // Operator ++, --
-    half& operator++() {
+    float16& operator++() {
         *this += 1;
         return *this;
     }
     
-    half operator++(int) {
-        half ret(*this);
+    float16 operator++(int) {
+        float16 ret(*this);
         operator++();
         return ret;
     }
     
-    half& operator--() {
+    float16& operator--() {
         *this -= 1;
         return *this;
     }
     
-    half operator--(int) {
-        half ret(*this);
+    float16 operator--(int) {
+        float16 ret(*this);
         operator--();
         return ret;
     }
