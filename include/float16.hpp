@@ -4,6 +4,7 @@
 #pragma once
 
 #include <cstdint>
+#include <functional>
 
 struct float16 {
     float16() = default;
@@ -18,14 +19,17 @@ struct float16 {
     
     // Operator +=, -=, *=, /=
 #define BINARY_ARITHMETIC_OPERATOR(OP)                                         \
-    float16& operator OP##=(const float16& rhs) {                                    \
+    float16& operator OP##=(const float16& rhs) {                              \
         *this = operator float() OP static_cast<float>(rhs);                   \
         return *this;                                                          \
     }
     
     BINARY_ARITHMETIC_OPERATOR(+)
+    
     BINARY_ARITHMETIC_OPERATOR(-)
+    
     BINARY_ARITHMETIC_OPERATOR(*)
+    
     BINARY_ARITHMETIC_OPERATOR(/)
 
 #undef BINARY_ARITHMETIC_OPERATOR
@@ -55,9 +59,23 @@ struct float16 {
     
     // Operator float
     operator float() const;
+    
+    template<typename Key> friend
+    struct std::hash;
 
 private:
     uint16_t buf;
 };
+
+namespace std {
+    
+    template<>
+    struct hash<float16> {
+        std::size_t operator()(const float16& key) const {
+            return hash<uint16_t>()(key.buf);
+        }
+    };
+    
+}
 
 #endif

@@ -4,6 +4,11 @@
 
 #include <assert.h>
 #include <float16.hpp>
+#include <unordered_map>
+#include <set>
+#include <string>
+
+using namespace std;
 
 const float epsion = 1e-3;
 
@@ -22,7 +27,18 @@ void testBasic() {
     assert((val_h_1 /= val_h_2) - (val_f_1 /= val_f_2) < epsion);
 }
 
+void testCompatibility() {
+    unordered_map<float16, string> map;
+    map[1.1] = "1.1";
+    assert(map[1.1] == "1.1");
+    
+    set<float16> half_set;
+    half_set.insert(1.1);
+    assert(half_set.find(1.1) != half_set.end());
+}
+
 int main() {
     testBasic();
+    testCompatibility();
     return 0;
 }

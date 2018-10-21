@@ -1,7 +1,7 @@
-# Half Precision Type
+# Half Precision Type (float16)
 
-A library for 16-bit float float16-precision type. All the calculation will be
-converted to 32-bit float and then downgrade to 16-bit one.
+A library for 16-bit half-precision float point type. All the calculation will
+be converted to 32-bit float and then downgrade to 16-bit one.
 
 ## Requirement
 - CMake 3.2+
@@ -18,6 +18,7 @@ make test
 ```
 
 ## Usage
+
 ### Source file
 ```C++
 ...
@@ -30,7 +31,12 @@ float16 val = 1.0;
 // Do what you want
 ...
 ```
+
 ### Compilation
 ```Shell
 ${CXX} -std=c++11 main.cpp -I/PATH/TO/float16.hpp -L/PATH/TO/float16.lib -lfloat16
 ```
+
+## TODO
+- Performance optimization
+- Standard compatibility

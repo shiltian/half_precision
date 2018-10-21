@@ -81,14 +81,17 @@ float16& float16::operator=(const float& rhs) {
 
 // Operator +, -, *, /
 #define BINARY_ARITHMETIC_OPERATOR(OP)                                         \
-float16 operator OP(float16 lhs, const float16& rhs) {                                  \
+float16 operator OP(float16 lhs, const float16& rhs) {                         \
     lhs OP##= rhs;                                                             \
     return lhs;                                                                \
 }
 
 BINARY_ARITHMETIC_OPERATOR(+)
+
 BINARY_ARITHMETIC_OPERATOR(-)
+
 BINARY_ARITHMETIC_OPERATOR(*)
+
 BINARY_ARITHMETIC_OPERATOR(/)
 
 #undef BINARY_ARITHMETIC_OPERATOR
