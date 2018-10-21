@@ -7,12 +7,14 @@ converted to 32-bit float and then downgrade to 16-bit one.
 - CMake 3.2+
 - A C++ compiler that supports C++11 standard
 
-## Installation:
+## Installation & Test:
 ```Shell
 mkdir build && cd build
 cmake ..
 make
 make install
+# test if needed
+make test
 ```
 
 ## Usage
@@ -30,5 +32,5 @@ float16 val = 1.0;
 ```
 ### Compilation
 ```Shell
-${CXX} -std=c++11 main.cpp -I/PATH/TO/float.hpp -L/PATH/TO/float16.lib -lFloat16
+${CXX} -std=c++11 main.cpp -I/PATH/TO/float16.hpp -L/PATH/TO/float16.lib -lfloat16
 ```
