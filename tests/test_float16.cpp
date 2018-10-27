@@ -31,7 +31,7 @@ void testCompatibility() {
     unordered_map<float16, string> map;
     map[1.1] = "1.1";
     assert(map[1.1] == "1.1");
-    
+
     set<float16> half_set;
     half_set.insert(1.1);
     assert(half_set.find(1.1) != half_set.end());

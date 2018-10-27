@@ -1,7 +1,10 @@
 #include <float16.hpp>
 #include <iostream>
 
+#include <emmintrin.h>
+
 static uint16_t float2half(const float& val) {
+#ifndef __F16CINTRIN_H
     const uint32_t bits = *reinterpret_cast<const uint32_t*>(&val);
     
     uint16_t ret = 0;
@@ -28,9 +31,13 @@ static uint16_t float2half(const float& val) {
     ret |= frac;
     
     return ret;
+#else
+    return _cvtss_sh(val, 0);
+#endif
 }
 
 static float half2float(const uint16_t& val) {
+#ifndef __F16CINTRIN_H
     uint32_t bits = 0;
     
     // Extract the sign from the bits
@@ -54,6 +61,9 @@ static float half2float(const uint16_t& val) {
     bits |= frac;
     
     return *reinterpret_cast<float*>(&bits);
+#else
+    return _cvtsh_ss(val);
+#endif
 }
 
 std::ostream& operator<<(std::ostream& os, const float16& val) {

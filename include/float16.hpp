@@ -68,14 +68,14 @@ private:
 };
 
 namespace std {
-    
+
     template<>
     struct hash<float16> {
         std::size_t operator()(const float16& key) const {
             return hash<uint16_t>()(key.buf);
         }
     };
-    
+
 }
 
 #endif

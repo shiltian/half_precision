@@ -4,7 +4,7 @@ A library for 16-bit half-precision float point type. All the calculation will
 be converted to 32-bit float and then downgrade to 16-bit one.
 
 ## Requirement
-- CMake 3.2+
+- CMake 3.1+
 - A C++ compiler that supports C++11 standard
 
 ## Installation & Test:
