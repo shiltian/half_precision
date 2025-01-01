@@ -5,7 +5,7 @@
 
 static uint16_t float2half(const float& val) {
 #ifndef __F16CINTRIN_H
-  const uint32_t bits = *reinterpret_cast<const uint32_t*>(&Val);
+  const uint32_t bits = *reinterpret_cast<const uint32_t*>(&val);
 
   // Extract the sign from the float value
   const uint16_t sign = (bits & 0x80000000) >> 16;
@@ -60,11 +60,11 @@ static uint16_t float2half(const float& val) {
 static float half2float(const uint16_t& val) {
 #ifndef __F16CINTRIN_H
   // Extract the sign from the bits
-  const uint32_t sign = static_cast<uint32_t>(Val & 0x8000) << 16;
+  const uint32_t sign = static_cast<uint32_t>(val & 0x8000) << 16;
   // Extract the exponent from the bits
-  const uint8_t exp16 = (Val & 0x7c00) >> 10;
+  const uint8_t exp16 = (val & 0x7c00) >> 10;
   // Extract the fraction from the bits
-  uint16_t frac16 = Val & 0x3ff;
+  uint16_t frac16 = val & 0x3ff;
 
   uint32_t exp32 = 0;
   if (__builtin_expect(exp16 == 0x1f, 0)) {
